@@ -1,6 +1,6 @@
-﻿namespace GraphicsEditor
+﻿namespace GraphicsEditor.View
 {
-    partial class GraphicsEditorForm
+    partial class GraphicsEditorView
     {
         /// <summary>
         ///  Required designer variable.
@@ -197,7 +197,7 @@
             this.ClientSize = new System.Drawing.Size(824, 651);
             this.Controls.Add(this.canvasPanel);
             this.Controls.Add(this.toolsPanel);
-            this.Name = "GraphicsEditorForm";
+            this.Name = "GraphicsEditorView";
             this.Text = "Graphics editor";
             this.toolsPanel.ResumeLayout(false);
             this.toolsPanel.PerformLayout();

@@ -1,28 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GeometricPrimitives;
+using GraphicsEditor.Controller;
 
-namespace GraphicsEditor
+namespace GraphicsEditor.View
 {
-    public partial class GraphicsEditorForm : Form
+    public partial class GraphicsEditorView : Form
     {
         private readonly Pen _pen;
-        private readonly Canvas _canvas;
+        private readonly CanvasController _canvasController;
         private Shape _currentShape;
         private Point _lastPoint;
         
-        public GraphicsEditorForm()
+        public GraphicsEditorView()
         {
             InitializeComponent();
             _pen = new Pen(Color.Black, widthTrackBar.Value);
-            _canvas = new Canvas();
+            _canvasController = new CanvasController();
             colorPanel.BackColor = _pen.Color;
         }
 
@@ -68,18 +63,18 @@ namespace GraphicsEditor
         private void loadButton_Click(object sender, EventArgs e)
         {
             loadFileDialog.ShowDialog(this);
-            _canvas.Load(loadFileDialog.FileName);
+            _canvasController.Load(loadFileDialog.FileName);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
             saveFileDialog.ShowDialog(this);
-            _canvas.Save(saveFileDialog.FileName);
+            _canvasController.Save(saveFileDialog.FileName);
         }
 
         private void canvasPanel_Paint(object sender, PaintEventArgs e)
         {
-            _canvas.Show(canvasPanel.CreateGraphics());
+            _canvasController.Show(canvasPanel.CreateGraphics());
         }
 
         private void canvasPanel_MouseMove(object sender, MouseEventArgs e)
