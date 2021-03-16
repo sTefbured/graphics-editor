@@ -7,18 +7,27 @@ namespace Line
     [Serializable]
     public class Line : Shape
     {
-        public Point First { get; }
-        public Point Second { get; }
-
-        public Line(Point first, Point second)
+        public Line()
         {
-            First = first;
-            Second = second;
+            
+        }
+        
+        public Line(Pen pen, Point first, Point second)
+        {
+            Red = pen.Color.R;
+            Green = pen.Color.G;
+            Blue = pen.Color.B;
+            Width = pen.Width;
+            SetBounds(first, second);
         }
 
-        public override void Draw(Graphics graphics, Pen pen)
+        public override void Draw(Graphics graphics)
         {
-            graphics.DrawLine(pen, First, Second);
+            Rectangle bounds = GetBounds();
+            Color color = Color.FromArgb(255, Red, Green, Blue);
+            Pen pen = new Pen(color, Width);
+            graphics.DrawLine(pen, bounds.X, bounds.Y, 
+                bounds.X + bounds.Width, bounds.Y + bounds.Height);
         }
     }
 }
