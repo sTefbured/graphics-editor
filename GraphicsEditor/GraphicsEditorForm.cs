@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GeometricPrimitives;
 
 namespace GraphicsEditor
 {
@@ -14,7 +15,8 @@ namespace GraphicsEditor
     {
         private readonly Pen _pen;
         private readonly Canvas _canvas;
-        private DrawingMode _drawingMode;
+        private Shape _currentShape;
+        private Point _lastPoint;
         
         public GraphicsEditorForm()
         {
@@ -45,16 +47,19 @@ namespace GraphicsEditor
                          .FillEllipse(Brushes.Black, x, y, _pen.Width, _pen.Width);
         }
 
+        //TODO: implement initializing _currentShape with new Line object
         private void lineButton_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
-        private void triangleButton_Click(object sender, EventArgs e)
+        //TODO: implement initializing _currentShape with new Rectangle object
+        private void rectangleButton_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
         }
 
+        //TODO: implement initializing _currentShape with new Circle object
         private void circleButton_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
@@ -62,22 +67,45 @@ namespace GraphicsEditor
 
         private void loadButton_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            loadFileDialog.ShowDialog(this);
+            _canvas.Load(loadFileDialog.FileName);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            saveFileDialog.ShowDialog(this);
+            _canvas.Save(saveFileDialog.FileName);
         }
 
         private void canvasPanel_Paint(object sender, PaintEventArgs e)
         {
-            throw new System.NotImplementedException();
+            _canvas.Show(canvasPanel.CreateGraphics());
         }
 
-        private void canvasPanel_MouseClick(object sender, MouseEventArgs e)
+        private void canvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (e.Button == MouseButtons.Left)
+            {
+                
+                Invalidate();
+            }
+        }
+
+        private void canvasPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _lastPoint = e.Location;
+            }
+        }
+
+        private void canvasPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //_currentShape.SetBounds(_lastPoint, e.Location);
+                canvasPanel.Invalidate();
+            }
         }
     }
 }

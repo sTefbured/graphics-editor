@@ -41,6 +41,8 @@
             this.colorPanel = new System.Windows.Forms.Panel();
             this.canvasPanel = new System.Windows.Forms.Panel();
             this.penColorDialog = new System.Windows.Forms.ColorDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.loadFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.widthTrackBar)).BeginInit();
             this.SuspendLayout();
@@ -119,7 +121,7 @@
             this.triangleButton.Text = "Triangle";
             this.triangleButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.triangleButton.UseVisualStyleBackColor = true;
-            this.triangleButton.Click += new System.EventHandler(this.triangleButton_Click);
+            this.triangleButton.Click += new System.EventHandler(this.rectangleButton_Click);
             // 
             // lineButton
             // 
@@ -176,7 +178,17 @@
             this.canvasPanel.Size = new System.Drawing.Size(635, 627);
             this.canvasPanel.TabIndex = 1;
             this.canvasPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.canvasPanel_Paint);
-            this.canvasPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvasPanel_MouseClick);
+            this.canvasPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvasPanel_MouseDown);
+            this.canvasPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvasPanel_MouseMove);
+            this.canvasPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvasPanel_MouseUp);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "Xml files|*.xml";
+            // 
+            // loadFileDialog
+            // 
+            this.loadFileDialog.Filter = "Xml files|*.xml";
             // 
             // GraphicsEditorForm
             // 
@@ -192,6 +204,10 @@
             ((System.ComponentModel.ISupportInitialize) (this.widthTrackBar)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.OpenFileDialog loadFileDialog;
+
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
 
         private System.Windows.Forms.RadioButton circleButton;
         private System.Windows.Forms.Button loadButton;
