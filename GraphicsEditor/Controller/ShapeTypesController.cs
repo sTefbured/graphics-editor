@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GraphicsEditor.Repository;
 
 namespace GraphicsEditor.Controller
@@ -12,9 +13,9 @@ namespace GraphicsEditor.Controller
             _shapeTypesRepository = new ShapeTypesRepository();
         }
 
-        public void AddFromAssembly(string assemblyPath)
+        public ICollection<Type> AddFromAssembly(string assemblyPath)
         {
-            _shapeTypesRepository.Add(assemblyPath);
+            return _shapeTypesRepository.Add(assemblyPath);
         }
     }
 }

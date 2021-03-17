@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GeometricPrimitives;
@@ -14,6 +15,9 @@ namespace GraphicsEditor.View
         private Shape _currentShape;
         private Point _lastPoint;
         
+        private const String defaultLinePath = "../../../../Line/bin/Debug/net5.0-windows/Line.dll";
+        private const String defaultRectanglePath = "../../../../Rectangle/bin/Debug/net5.0-windows/Rectangle.dll";
+
         public GraphicsEditorView()
         {
             InitializeComponent();
@@ -21,6 +25,11 @@ namespace GraphicsEditor.View
             _canvasController = new CanvasController();
             _shapeTypesController = new ShapeTypesController();
             colorPanel.BackColor = _pen.Color;
+            
+            ICollection<Type> types = _shapeTypesController.AddFromAssembly(defaultLinePath);
+            AddPrimitiveButtons(types);
+            types = _shapeTypesController.AddFromAssembly(defaultRectanglePath);
+            AddPrimitiveButtons(types);
         }
 
         private void colorButton_Click(object sender, EventArgs e)
@@ -38,21 +47,12 @@ namespace GraphicsEditor.View
 
         private void penWidthPanel_Paint(object sender, PaintEventArgs e)
         {
-            int x = penWidthPanel.Width / 2 - (int)_pen.Width / 2;
-            int y = penWidthPanel.Height / 2 - (int)_pen.Width / 2;
+            int x = penWidthPanel.Width / 2 - (int) _pen.Width / 2;
+            int y = penWidthPanel.Height / 2 - (int) _pen.Width / 2;
             penWidthPanel.CreateGraphics()
-                         .FillEllipse(Brushes.Black, x, y, _pen.Width, _pen.Width);
+                .FillEllipse(Brushes.Black, x, y, _pen.Width, _pen.Width);
         }
-
-        private void geometricPrimitiveButton_Click(object sender, EventArgs e)
-        {
-            Type shapeType = Type.GetType(((Button) sender).Text);
-            if (shapeType != null)
-            {
-                _currentShape = (Shape)Activator.CreateInstance(shapeType);
-            }
-        }
-
+        
         private void loadButton_Click(object sender, EventArgs e)
         {
             loadFileDialog.ShowDialog(this);
@@ -74,7 +74,6 @@ namespace GraphicsEditor.View
         {
             if (e.Button == MouseButtons.Left)
             {
-                
                 Invalidate();
             }
         }
@@ -101,8 +100,35 @@ namespace GraphicsEditor.View
         {
             loadPrimitiveDialog.ShowDialog(this);
             string path = loadPrimitiveDialog.FileName;
-            _shapeTypesController.AddFromAssembly(path);
-            //TODO: add button
+            ICollection<Type> types = _shapeTypesController.AddFromAssembly(path);
+            AddPrimitiveButtons(types);
+        }
+
+        private void AddPrimitiveButtons(ICollection<Type> primitiveTypes)
+        {
+            foreach (var type in primitiveTypes)
+            {
+                if (type.IsSubclassOf(typeof(Shape)))
+                {
+                    RadioButton button = new RadioButton
+                    {
+                        Text = type.Name, 
+                        Appearance = Appearance.Button,
+                        AccessibleDescription = type.AssemblyQualifiedName
+                    };
+                    button.Click += geometricPrimitiveButton_Click;
+                    primitivesPanel.Controls.Add(button);
+                }
+            }
+        }
+        
+        private void geometricPrimitiveButton_Click(object sender, EventArgs e)
+        {
+            Type shapeType = Type.GetType(((RadioButton) sender).AccessibleDescription);
+            if (shapeType != null)
+            {
+                _currentShape = (Shape) Activator.CreateInstance(shapeType);
+            }
         }
     }
 }

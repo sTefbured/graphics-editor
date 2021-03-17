@@ -30,6 +30,7 @@
         private void InitializeComponent()
         {
             this.toolsPanel = new System.Windows.Forms.Panel();
+            this.primitivesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.saveButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.widthTrackBar = new System.Windows.Forms.TrackBar();
@@ -54,6 +55,7 @@
             this.toolsPanel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.toolsPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.toolsPanel.Controls.Add(this.primitivesPanel);
             this.toolsPanel.Controls.Add(this.saveButton);
             this.toolsPanel.Controls.Add(this.loadButton);
             this.toolsPanel.Controls.Add(this.widthTrackBar);
@@ -64,6 +66,14 @@
             this.toolsPanel.Name = "toolsPanel";
             this.toolsPanel.Size = new System.Drawing.Size(150, 602);
             this.toolsPanel.TabIndex = 0;
+            // 
+            // primitivesPanel
+            // 
+            this.primitivesPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.primitivesPanel.Location = new System.Drawing.Point(40, 300);
+            this.primitivesPanel.Name = "primitivesPanel";
+            this.primitivesPanel.Size = new System.Drawing.Size(70, 200);
+            this.primitivesPanel.TabIndex = 8;
             // 
             // saveButton
             // 
@@ -197,6 +207,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.FlowLayoutPanel primitivesPanel;
 
         private System.Windows.Forms.OpenFileDialog loadPrimitiveDialog;
 

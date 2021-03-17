@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Drawing;
+using System.Xml.Serialization;
 using GeometricPrimitives;
 
 namespace Rectangle
 {
     [Serializable]
+    [XmlType("Rectangle.Rectangle")]
     public class Rectangle : Shape
     {
         private Rectangle()
