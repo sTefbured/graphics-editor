@@ -10,6 +10,7 @@ namespace GraphicsEditor.View
     {
         private readonly Pen _pen;
         private readonly CanvasController _canvasController;
+        private readonly ShapeTypesController _shapeTypesController;
         private Shape _currentShape;
         private Point _lastPoint;
         
@@ -18,6 +19,7 @@ namespace GraphicsEditor.View
             InitializeComponent();
             _pen = new Pen(Color.Black, widthTrackBar.Value);
             _canvasController = new CanvasController();
+            _shapeTypesController = new ShapeTypesController();
             colorPanel.BackColor = _pen.Color;
         }
 
@@ -42,22 +44,13 @@ namespace GraphicsEditor.View
                          .FillEllipse(Brushes.Black, x, y, _pen.Width, _pen.Width);
         }
 
-        //TODO: implement initializing _currentShape with new Line object
-        private void lineButton_Click(object sender, EventArgs e)
+        private void geometricPrimitiveButton_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
-        }
-
-        //TODO: implement initializing _currentShape with new Rectangle object
-        private void rectangleButton_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //TODO: implement initializing _currentShape with new Circle object
-        private void circleButton_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
+            Type shapeType = Type.GetType(((Button) sender).Text);
+            if (shapeType != null)
+            {
+                _currentShape = (Shape)Activator.CreateInstance(shapeType);
+            }
         }
 
         private void loadButton_Click(object sender, EventArgs e)
@@ -99,8 +92,17 @@ namespace GraphicsEditor.View
             if (e.Button == MouseButtons.Left)
             {
                 //_currentShape.SetBounds(_lastPoint, e.Location);
+                //_canvasController.AddShape(_currentShape);
                 canvasPanel.Invalidate();
             }
+        }
+
+        private void addPrimitiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadPrimitiveDialog.ShowDialog(this);
+            string path = loadPrimitiveDialog.FileName;
+            _shapeTypesController.AddFromAssembly(path);
+            //TODO: add button
         }
     }
 }

@@ -12,6 +12,8 @@ namespace GeometricPrimitives
         public float Width { get; set; }
         public Rectangle Bounds { get; set; }
 
+        //TODO: add protected pen property
+        
         protected Shape()
         {
             Bounds = new Rectangle();

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.Drawing;
 using GeometricPrimitives;
 using GraphicsEditor.Repository;
 
@@ -9,7 +6,7 @@ namespace GraphicsEditor.Controller
 {
     public class CanvasController
     {
-        private ShapeRepository _shapeRepository;
+        private readonly ShapeRepository _shapeRepository;
 
         public CanvasController()
         {
@@ -18,27 +15,22 @@ namespace GraphicsEditor.Controller
 
         public void Show(Graphics graphics)
         {
-            foreach (var shape in _shapeRepository.Shapes)
+            foreach (var shape in _shapeRepository.GetAll())
             {
                 shape.Draw(graphics);
             }
         }
-
-        //TODO: implement
-        #region Not implemented
-
+        
         public void AddShape(Shape shape)
         {
-            
+            _shapeRepository.Add(shape);
         }
 
+        //TODO: implement
         public void DeleteShape(Shape shape)
         {
             
         }
-
-
-        #endregion
         
         public void Save(string path)
         {

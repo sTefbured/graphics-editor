@@ -33,9 +33,6 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.widthTrackBar = new System.Windows.Forms.TrackBar();
-            this.circleButton = new System.Windows.Forms.RadioButton();
-            this.triangleButton = new System.Windows.Forms.RadioButton();
-            this.lineButton = new System.Windows.Forms.RadioButton();
             this.colorButton = new System.Windows.Forms.Button();
             this.penWidthPanel = new System.Windows.Forms.Panel();
             this.colorPanel = new System.Windows.Forms.Panel();
@@ -43,8 +40,13 @@
             this.penColorDialog = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.loadFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPrimitiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadPrimitiveDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.widthTrackBar)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolsPanel
@@ -55,15 +57,12 @@
             this.toolsPanel.Controls.Add(this.saveButton);
             this.toolsPanel.Controls.Add(this.loadButton);
             this.toolsPanel.Controls.Add(this.widthTrackBar);
-            this.toolsPanel.Controls.Add(this.circleButton);
-            this.toolsPanel.Controls.Add(this.triangleButton);
-            this.toolsPanel.Controls.Add(this.lineButton);
             this.toolsPanel.Controls.Add(this.colorButton);
             this.toolsPanel.Controls.Add(this.penWidthPanel);
             this.toolsPanel.Controls.Add(this.colorPanel);
-            this.toolsPanel.Location = new System.Drawing.Point(12, 12);
+            this.toolsPanel.Location = new System.Drawing.Point(12, 37);
             this.toolsPanel.Name = "toolsPanel";
-            this.toolsPanel.Size = new System.Drawing.Size(150, 627);
+            this.toolsPanel.Size = new System.Drawing.Size(150, 602);
             this.toolsPanel.TabIndex = 0;
             // 
             // saveButton
@@ -98,44 +97,6 @@
             this.widthTrackBar.TickFrequency = 5;
             this.widthTrackBar.Value = 1;
             this.widthTrackBar.Scroll += new System.EventHandler(this.widthTrackBar_Scroll);
-            // 
-            // circleButton
-            // 
-            this.circleButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.circleButton.Location = new System.Drawing.Point(40, 350);
-            this.circleButton.Name = "circleButton";
-            this.circleButton.Size = new System.Drawing.Size(70, 24);
-            this.circleButton.TabIndex = 5;
-            this.circleButton.Text = "Circle";
-            this.circleButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.circleButton.UseVisualStyleBackColor = true;
-            this.circleButton.Click += new System.EventHandler(this.circleButton_Click);
-            // 
-            // triangleButton
-            // 
-            this.triangleButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.triangleButton.Location = new System.Drawing.Point(40, 320);
-            this.triangleButton.Name = "triangleButton";
-            this.triangleButton.Size = new System.Drawing.Size(70, 24);
-            this.triangleButton.TabIndex = 4;
-            this.triangleButton.Text = "Triangle";
-            this.triangleButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.triangleButton.UseVisualStyleBackColor = true;
-            this.triangleButton.Click += new System.EventHandler(this.rectangleButton_Click);
-            // 
-            // lineButton
-            // 
-            this.lineButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.lineButton.Checked = true;
-            this.lineButton.Location = new System.Drawing.Point(40, 290);
-            this.lineButton.Name = "lineButton";
-            this.lineButton.Size = new System.Drawing.Size(70, 24);
-            this.lineButton.TabIndex = 3;
-            this.lineButton.TabStop = true;
-            this.lineButton.Text = "Line";
-            this.lineButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lineButton.UseVisualStyleBackColor = true;
-            this.lineButton.Click += new System.EventHandler(this.lineButton_Click);
             // 
             // colorButton
             // 
@@ -172,10 +133,10 @@
             this.canvasPanel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.canvasPanel.BackColor = System.Drawing.Color.White;
             this.canvasPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.canvasPanel.Location = new System.Drawing.Point(177, 12);
+            this.canvasPanel.Location = new System.Drawing.Point(177, 37);
             this.canvasPanel.Margin = new System.Windows.Forms.Padding(12);
             this.canvasPanel.Name = "canvasPanel";
-            this.canvasPanel.Size = new System.Drawing.Size(635, 627);
+            this.canvasPanel.Size = new System.Drawing.Size(635, 602);
             this.canvasPanel.TabIndex = 1;
             this.canvasPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.canvasPanel_Paint);
             this.canvasPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvasPanel_MouseDown);
@@ -190,33 +151,67 @@
             // 
             this.loadFileDialog.Filter = "Xml files|*.xml";
             // 
-            // GraphicsEditorForm
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(824, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.addPrimitiveToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // addPrimitiveToolStripMenuItem
+            // 
+            this.addPrimitiveToolStripMenuItem.Name = "addPrimitiveToolStripMenuItem";
+            this.addPrimitiveToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addPrimitiveToolStripMenuItem.Text = "Add primitive...";
+            this.addPrimitiveToolStripMenuItem.Click += new System.EventHandler(this.addPrimitiveToolStripMenuItem_Click);
+            // 
+            // loadPrimitiveDialog
+            // 
+            this.loadPrimitiveDialog.Filter = "Dynamic Link Library|*.dll";
+            // 
+            // GraphicsEditorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 651);
             this.Controls.Add(this.canvasPanel);
             this.Controls.Add(this.toolsPanel);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "GraphicsEditorView";
             this.Text = "Graphics editor";
             this.toolsPanel.ResumeLayout(false);
             this.toolsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.widthTrackBar)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
+
+        private System.Windows.Forms.OpenFileDialog loadPrimitiveDialog;
+
+        private System.Windows.Forms.ToolStripMenuItem addPrimitiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
 
         private System.Windows.Forms.OpenFileDialog loadFileDialog;
 
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
 
-        private System.Windows.Forms.RadioButton circleButton;
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.Panel penWidthPanel;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.TrackBar widthTrackBar;
-        private System.Windows.Forms.RadioButton triangleButton;
-
-        private System.Windows.Forms.RadioButton lineButton;
 
         private System.Windows.Forms.Button colorButton;
 
