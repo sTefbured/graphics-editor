@@ -12,10 +12,10 @@ namespace GraphicsEditor.Repository
         private List<Shape> _shapes;
         private readonly ShapeTypesRepository _shapeTypesRepository;
 
-        public ShapeRepository()
+        public ShapeRepository(ShapeTypesRepository shapeTypesRepository)
         {
             _shapes = new List<Shape>();
-            _shapeTypesRepository = new ShapeTypesRepository();
+            _shapeTypesRepository = shapeTypesRepository;
         }
 
         public void SaveToFile(string filePath)

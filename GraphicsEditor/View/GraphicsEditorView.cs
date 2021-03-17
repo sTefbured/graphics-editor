@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using GeometricPrimitives;
 using GraphicsEditor.Controller;
+using GraphicsEditor.Repository;
 
 namespace GraphicsEditor.View
 {
@@ -21,9 +22,10 @@ namespace GraphicsEditor.View
         public GraphicsEditorView()
         {
             InitializeComponent();
+            var shapeTypesRepository = new ShapeTypesRepository();
+            _canvasController = new CanvasController(shapeTypesRepository);
+            _shapeTypesController = new ShapeTypesController(shapeTypesRepository);
             _pen = new Pen(Color.Black, widthTrackBar.Value);
-            _canvasController = new CanvasController();
-            _shapeTypesController = new ShapeTypesController();
             colorPanel.BackColor = _pen.Color;
             
             ICollection<Type> types = _shapeTypesController.AddFromAssembly(defaultLinePath);

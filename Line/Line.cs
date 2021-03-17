@@ -7,7 +7,7 @@ namespace Line
     [Serializable]
     public class Line : Shape
     {
-        private Line()
+        public Line()
         {
         }
 

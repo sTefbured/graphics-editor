@@ -8,9 +8,9 @@ namespace GraphicsEditor.Controller
     {
         private readonly ShapeRepository _shapeRepository;
 
-        public CanvasController()
+        public CanvasController(ShapeTypesRepository shapeTypesRepository)
         {
-            _shapeRepository = new ShapeRepository();
+            _shapeRepository = new ShapeRepository(shapeTypesRepository);
         }
 
         public void Show(Graphics graphics)

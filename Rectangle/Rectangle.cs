@@ -9,7 +9,7 @@ namespace Rectangle
     [XmlType("Rectangle.Rectangle")]
     public class Rectangle : Shape
     {
-        private Rectangle()
+        public Rectangle()
         {
         }
 

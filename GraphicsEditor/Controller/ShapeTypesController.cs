@@ -8,9 +8,9 @@ namespace GraphicsEditor.Controller
     {
         private readonly ShapeTypesRepository _shapeTypesRepository;
 
-        public ShapeTypesController()
+        public ShapeTypesController(ShapeTypesRepository shapeTypesRepository)
         {
-            _shapeTypesRepository = new ShapeTypesRepository();
+            _shapeTypesRepository = shapeTypesRepository;
         }
 
         public ICollection<Type> AddFromAssembly(string assemblyPath)

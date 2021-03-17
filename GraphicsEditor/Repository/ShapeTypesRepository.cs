@@ -8,11 +8,11 @@ namespace GraphicsEditor.Repository
 {
     public class ShapeTypesRepository
     {
-        public HashSet<Type> ShapeTypes { get; }
-        
+        public List<Type> ShapeTypes { get; }
+
         public ShapeTypesRepository()
         {
-            ShapeTypes = new HashSet<Type>();
+            ShapeTypes = new List<Type>();
         }
 
         private ICollection<Type> GetTypesFromAssembly(string assemblyPath)
