@@ -10,6 +10,10 @@ namespace Ellipse
         public Ellipse()
         {
         }
+        
+        public Ellipse(Pen pen) : base(pen)
+        {
+        }
 
         public Ellipse(Pen pen, Point first, Point second) : base(pen, first, second)
         {

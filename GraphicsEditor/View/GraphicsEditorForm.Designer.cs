@@ -1,6 +1,6 @@
 ﻿namespace GraphicsEditor.View
 {
-    partial class GraphicsEditorView
+    partial class GraphicsEditorForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -37,7 +37,7 @@
             this.colorButton = new System.Windows.Forms.Button();
             this.penWidthPanel = new System.Windows.Forms.Panel();
             this.colorPanel = new System.Windows.Forms.Panel();
-            this.canvasPanel = new System.Windows.Forms.Panel();
+            this.canvasPanel = new CanvasPanel();
             this.penColorDialog = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.loadFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -197,7 +197,7 @@
             this.Controls.Add(this.toolsPanel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "GraphicsEditorView";
+            this.Name = "GraphicsEditorForm";
             this.Text = "Graphics editor";
             this.toolsPanel.ResumeLayout(false);
             this.toolsPanel.PerformLayout();
@@ -206,6 +206,7 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.DoubleBuffered = true;
         }
 
         private System.Windows.Forms.FlowLayoutPanel primitivesPanel;
@@ -230,7 +231,7 @@
         private System.Windows.Forms.Panel colorPanel;
         private System.Windows.Forms.ColorDialog penColorDialog;
 
-        private System.Windows.Forms.Panel canvasPanel;
+        private CanvasPanel canvasPanel;
         private System.Windows.Forms.Panel toolsPanel;
 
         #endregion

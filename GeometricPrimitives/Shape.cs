@@ -11,20 +11,21 @@ namespace GeometricPrimitives
         public byte Blue { get; set; }
         public float Width { get; set; }
         public Rectangle Bounds { get; set; }
-
-        //TODO: add protected pen property
+        private Pen _pen;
         
         protected Shape()
         {
             Bounds = new Rectangle();
         }
 
+        protected Shape(Pen pen)
+        {
+            SetPen(pen);
+        }
+        
         protected Shape(Pen pen, Point first, Point second)
         {
-            Red = pen.Color.R;
-            Green = pen.Color.G;
-            Blue = pen.Color.B;
-            Width = pen.Width;
+            SetPen(pen);
             SetBounds(first, second);
         }
         
@@ -38,6 +39,20 @@ namespace GeometricPrimitives
             Color color = Color.FromArgb(255, Red, Green, Blue);
             Pen pen = new Pen(color, Width);
             return pen;
+        }
+
+        public void SetPen(Pen pen)
+        {
+            _pen = pen;
+            Red = pen.Color.R;
+            Green = pen.Color.G;
+            Blue = pen.Color.B;
+            Width = pen.Width;
+        }
+
+        protected Pen GetPen()
+        {
+            return _pen;
         }
 
         public abstract void Draw(Graphics graphics);

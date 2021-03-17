@@ -11,13 +11,17 @@ namespace Line
         {
         }
 
+        public Line(Pen pen) : base(pen)
+        {
+        }
+
         public Line(Pen pen, Point first, Point second) : base(pen, first, second)
         {
         }
 
         public override void Draw(Graphics graphics)
         {
-            graphics.DrawLine(CreatePen(), Bounds.X, Bounds.Y,
+            graphics.DrawLine(GetPen(), Bounds.X, Bounds.Y,
                 Bounds.X + Bounds.Width, Bounds.Y + Bounds.Height);
         }
     }

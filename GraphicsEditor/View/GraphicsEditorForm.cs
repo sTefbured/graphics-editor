@@ -8,7 +8,7 @@ using GraphicsEditor.Repository;
 
 namespace GraphicsEditor.View
 {
-    public partial class GraphicsEditorView : Form
+    public partial class GraphicsEditorForm : Form
     {
         private readonly Pen _pen;
         private readonly CanvasController _canvasController;
@@ -19,7 +19,7 @@ namespace GraphicsEditor.View
         private const String defaultLinePath = "../../../../Line/bin/Debug/net5.0-windows/Line.dll";
         private const String defaultRectanglePath = "../../../../Rectangle/bin/Debug/net5.0-windows/Rectangle.dll";
 
-        public GraphicsEditorView()
+        public GraphicsEditorForm()
         {
             InitializeComponent();
             var shapeTypesRepository = new ShapeTypesRepository();
@@ -38,13 +38,15 @@ namespace GraphicsEditor.View
         {
             penColorDialog.ShowDialog(this);
             _pen.Color = penColorDialog.Color;
+            _currentShape.SetPen(_pen);
             colorPanel.BackColor = penColorDialog.Color;
         }
 
         private void widthTrackBar_Scroll(object sender, EventArgs e)
         {
             _pen.Width = widthTrackBar.Value;
-            penWidthPanel.Invalidate();
+            _currentShape.SetPen(_pen);
+            penWidthPanel.Refresh();
         }
 
         private void penWidthPanel_Paint(object sender, PaintEventArgs e)
@@ -69,14 +71,17 @@ namespace GraphicsEditor.View
 
         private void canvasPanel_Paint(object sender, PaintEventArgs e)
         {
-            _canvasController.Show(canvasPanel.CreateGraphics());
+            //Graphics graphics = canvasPanel.CreateGraphics();
+            _canvasController.Show(e.Graphics);
+            _currentShape?.Draw(e.Graphics);
         }
 
         private void canvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                Invalidate();
+                _currentShape.SetBounds(_lastPoint, e.Location);
+                canvasPanel.Refresh();
             }
         }
 
@@ -92,9 +97,10 @@ namespace GraphicsEditor.View
         {
             if (e.Button == MouseButtons.Left)
             {
-                //_currentShape.SetBounds(_lastPoint, e.Location);
-                //_canvasController.AddShape(_currentShape);
-                canvasPanel.Invalidate();
+                _currentShape.SetBounds(_lastPoint, e.Location);
+                _canvasController.AddShape(_currentShape);
+                _currentShape = (Shape)Activator.CreateInstance(_currentShape.GetType(), _pen);
+                canvasPanel.Refresh();
             }
         }
 
@@ -129,7 +135,7 @@ namespace GraphicsEditor.View
             Type shapeType = Type.GetType(((RadioButton) sender).AccessibleDescription);
             if (shapeType != null)
             {
-                _currentShape = (Shape) Activator.CreateInstance(shapeType);
+                _currentShape = (Shape) Activator.CreateInstance(shapeType, _pen);
             }
         }
     }
