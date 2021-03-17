@@ -8,9 +8,9 @@ namespace GraphicsEditor.Controller
     {
         private readonly ShapeRepository _shapeRepository;
 
-        public CanvasController(ShapeTypesRepository shapeTypesRepository)
+        public CanvasController(ShapeRepository shapeRepository)
         {
-            _shapeRepository = new ShapeRepository(shapeTypesRepository);
+            _shapeRepository = shapeRepository;
         }
 
         public void Show(Graphics graphics)
@@ -20,23 +20,17 @@ namespace GraphicsEditor.Controller
                 shape.Draw(graphics);
             }
         }
-        
+
         public void AddShape(Shape shape)
         {
             _shapeRepository.Add(shape);
         }
 
-        //TODO: implement
-        public void DeleteShape(Shape shape)
-        {
-            
-        }
-        
         public void Save(string path)
         {
             _shapeRepository.SaveToFile(path);
         }
-        
+
         public void Load(string path)
         {
             _shapeRepository.LoadFromFile(path);

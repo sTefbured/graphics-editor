@@ -10,18 +10,14 @@ namespace Ellipse
         public Ellipse()
         {
         }
-        
-        public Ellipse(Pen pen) : base(pen)
-        {
-        }
 
-        public Ellipse(Pen pen, Point first, Point second) : base(pen, first, second)
+        public Ellipse(Pen pen) : base(pen)
         {
         }
 
         public override void Draw(Graphics graphics)
         {
-            graphics.DrawEllipse(CreatePen(), Bounds);
+            graphics.DrawEllipse(GetPen(), Bounds);
         }
     }
 }

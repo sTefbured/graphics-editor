@@ -15,19 +15,21 @@ namespace GraphicsEditor.View
         private readonly ShapeTypesController _shapeTypesController;
         private Shape _currentShape;
         private Point _lastPoint;
-        
+
         private const String defaultLinePath = "../../../../Line/bin/Debug/net5.0-windows/Line.dll";
         private const String defaultRectanglePath = "../../../../Rectangle/bin/Debug/net5.0-windows/Rectangle.dll";
 
         public GraphicsEditorForm()
         {
             InitializeComponent();
+
             var shapeTypesRepository = new ShapeTypesRepository();
-            _canvasController = new CanvasController(shapeTypesRepository);
+            var shapeRepository = new ShapeRepository(shapeTypesRepository);
+            _canvasController = new CanvasController(shapeRepository);
             _shapeTypesController = new ShapeTypesController(shapeTypesRepository);
             _pen = new Pen(Color.Black, widthTrackBar.Value);
             colorPanel.BackColor = _pen.Color;
-            
+
             ICollection<Type> types = _shapeTypesController.AddFromAssembly(defaultLinePath);
             AddPrimitiveButtons(types);
             types = _shapeTypesController.AddFromAssembly(defaultRectanglePath);
@@ -56,7 +58,7 @@ namespace GraphicsEditor.View
             penWidthPanel.CreateGraphics()
                 .FillEllipse(Brushes.Black, x, y, _pen.Width, _pen.Width);
         }
-        
+
         private void loadButton_Click(object sender, EventArgs e)
         {
             loadFileDialog.ShowDialog(this);
@@ -71,7 +73,6 @@ namespace GraphicsEditor.View
 
         private void canvasPanel_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics graphics = canvasPanel.CreateGraphics();
             _canvasController.Show(e.Graphics);
             _currentShape?.Draw(e.Graphics);
         }
@@ -99,7 +100,7 @@ namespace GraphicsEditor.View
             {
                 _currentShape.SetBounds(_lastPoint, e.Location);
                 _canvasController.AddShape(_currentShape);
-                _currentShape = (Shape)Activator.CreateInstance(_currentShape.GetType(), _pen);
+                _currentShape = (Shape) Activator.CreateInstance(_currentShape.GetType(), _pen);
                 canvasPanel.Refresh();
             }
         }
@@ -120,7 +121,7 @@ namespace GraphicsEditor.View
                 {
                     RadioButton button = new RadioButton
                     {
-                        Text = type.Name, 
+                        Text = type.Name,
                         Appearance = Appearance.Button,
                         AccessibleDescription = type.AssemblyQualifiedName
                     };
@@ -129,7 +130,7 @@ namespace GraphicsEditor.View
                 }
             }
         }
-        
+
         private void geometricPrimitiveButton_Click(object sender, EventArgs e)
         {
             Type shapeType = Type.GetType(((RadioButton) sender).AccessibleDescription);

@@ -15,10 +15,6 @@ namespace Line
         {
         }
 
-        public Line(Pen pen, Point first, Point second) : base(pen, first, second)
-        {
-        }
-
         public override void Draw(Graphics graphics)
         {
             graphics.DrawLine(GetPen(), Bounds.X, Bounds.Y,

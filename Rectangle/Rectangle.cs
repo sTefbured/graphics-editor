@@ -12,33 +12,28 @@ namespace Rectangle
         public Rectangle()
         {
         }
-        
-        public Rectangle(Pen pen) : base(pen)
-        {
-        }
 
-        public Rectangle(Pen pen, Point first, Point second) : base(pen, first, second)
+        public Rectangle(Pen pen) : base(pen)
         {
         }
 
         public override void Draw(Graphics graphics)
         {
-            Point point1 = Bounds.Location;
-            Point point2 = new Point(Bounds.X + Bounds.Width, Bounds.Y + Bounds.Height);
-            if (point1.X > point2.X)
+            Point location = Bounds.Location;
+            Size size = Bounds.Size;
+            if (size.Width < 0)
             {
-                var buffer = point1.X;
-                point1.X = point2.X;
-                point2.X = buffer;
-            }
-            if (point1.Y > point2.Y)
-            {
-                var buffer = point1.Y;
-                point1.Y = point2.Y;
-                point2.Y = buffer;
+                size.Width = -size.Width;
+                location.X -= size.Width;
             }
 
-            graphics.DrawRectangle(CreatePen(), point1.X, point1.Y, point2.X, point2.Y);
+            if (size.Height < 0)
+            {
+                size.Height = -size.Height;
+                location.Y -= size.Height;
+            }
+
+            graphics.DrawRectangle(GetPen(), location.X, location.Y, size.Width, size.Height);
         }
     }
 }

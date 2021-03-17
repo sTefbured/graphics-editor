@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using GeometricPrimitives;
@@ -27,6 +26,7 @@ namespace GraphicsEditor.Repository
                     shapeTypes.Add(type);
                 }
             }
+
             return shapeTypes;
         }
 

@@ -12,7 +12,7 @@ namespace GeometricPrimitives
         public float Width { get; set; }
         public Rectangle Bounds { get; set; }
         private Pen _pen;
-        
+
         protected Shape()
         {
             Bounds = new Rectangle();
@@ -22,28 +22,16 @@ namespace GeometricPrimitives
         {
             SetPen(pen);
         }
-        
-        protected Shape(Pen pen, Point first, Point second)
-        {
-            SetPen(pen);
-            SetBounds(first, second);
-        }
-        
+
         public void SetBounds(Point point1, Point point2)
         {
-            Bounds = new Rectangle(point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y);
-        }
-
-        protected Pen CreatePen()
-        {
-            Color color = Color.FromArgb(255, Red, Green, Blue);
-            Pen pen = new Pen(color, Width);
-            return pen;
+            Bounds = new Rectangle(point1.X, point1.Y,
+                point2.X - point1.X, point2.Y - point1.Y);
         }
 
         public void SetPen(Pen pen)
         {
-            _pen = pen;
+            _pen = (Pen) pen.Clone();
             Red = pen.Color.R;
             Green = pen.Color.G;
             Blue = pen.Color.B;
