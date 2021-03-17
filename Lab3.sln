@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometricPrimitives", "Geom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Line", "Line\Line.csproj", "{4F20A644-17C5-427E-8D46-1F2BB19DFE10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellipse", "Ellipse\Ellipse.csproj", "{A4953979-F3B0-46D2-8051-9B7E5B995732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rectangle", "Rectangle\Rectangle.csproj", "{8BB14E81-D65F-4C5A-A3BA-4C9422267926}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{4F20A644-17C5-427E-8D46-1F2BB19DFE10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F20A644-17C5-427E-8D46-1F2BB19DFE10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F20A644-17C5-427E-8D46-1F2BB19DFE10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4953979-F3B0-46D2-8051-9B7E5B995732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4953979-F3B0-46D2-8051-9B7E5B995732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4953979-F3B0-46D2-8051-9B7E5B995732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4953979-F3B0-46D2-8051-9B7E5B995732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BB14E81-D65F-4C5A-A3BA-4C9422267926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB14E81-D65F-4C5A-A3BA-4C9422267926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB14E81-D65F-4C5A-A3BA-4C9422267926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB14E81-D65F-4C5A-A3BA-4C9422267926}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

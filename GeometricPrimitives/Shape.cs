@@ -17,14 +17,25 @@ namespace GeometricPrimitives
             Bounds = new Rectangle();
         }
 
-        public Rectangle GetBounds()
+        protected Shape(Pen pen, Point first, Point second)
         {
-            return Bounds;
+            Red = pen.Color.R;
+            Green = pen.Color.G;
+            Blue = pen.Color.B;
+            Width = pen.Width;
+            SetBounds(first, second);
         }
         
         public void SetBounds(Point point1, Point point2)
         {
             Bounds = new Rectangle(point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y);
+        }
+
+        protected Pen CreatePen()
+        {
+            Color color = Color.FromArgb(255, Red, Green, Blue);
+            Pen pen = new Pen(color, Width);
+            return pen;
         }
 
         public abstract void Draw(Graphics graphics);
