@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using GeometricPrimitives;
 using GraphicsEditor.Controller;
@@ -27,7 +28,8 @@ namespace GraphicsEditor.View
             var shapeRepository = new ShapeRepository(shapeTypesRepository);
             _canvasController = new CanvasController(shapeRepository);
             _shapeTypesController = new ShapeTypesController(shapeTypesRepository);
-            _pen = new Pen(Color.Black, widthTrackBar.Value);
+            _pen = new Pen(Color.Black, widthTrackBar.Value) {StartCap = LineCap.Round, EndCap = LineCap.Round};
+            _pen.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
             colorPanel.BackColor = _pen.Color;
 
             ICollection<Type> types = _shapeTypesController.AddFromAssembly(defaultLinePath);
@@ -47,7 +49,7 @@ namespace GraphicsEditor.View
         private void widthTrackBar_Scroll(object sender, EventArgs e)
         {
             _pen.Width = widthTrackBar.Value;
-            _currentShape.SetPen(_pen);
+            _currentShape?.SetPen(_pen);
             penWidthPanel.Refresh();
         }
 
@@ -63,6 +65,7 @@ namespace GraphicsEditor.View
         {
             loadFileDialog.ShowDialog(this);
             _canvasController.Load(loadFileDialog.FileName);
+            canvasPanel.Refresh();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -79,7 +82,7 @@ namespace GraphicsEditor.View
 
         private void canvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if ((e.Button == MouseButtons.Left) && (_currentShape != null))
             {
                 _currentShape.SetBounds(_lastPoint, e.Location);
                 canvasPanel.Refresh();
@@ -88,7 +91,7 @@ namespace GraphicsEditor.View
 
         private void canvasPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if ((e.Button == MouseButtons.Left))
             {
                 _lastPoint = e.Location;
             }
@@ -96,7 +99,7 @@ namespace GraphicsEditor.View
 
         private void canvasPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if ((e.Button == MouseButtons.Left) && (_currentShape != null))
             {
                 _currentShape.SetBounds(_lastPoint, e.Location);
                 _canvasController.AddShape(_currentShape);

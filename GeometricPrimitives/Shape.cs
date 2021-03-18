@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace GeometricPrimitives
 {
@@ -11,6 +12,7 @@ namespace GeometricPrimitives
         public byte Blue { get; set; }
         public float Width { get; set; }
         public Rectangle Bounds { get; set; }
+        [NonSerialized]
         private Pen _pen;
 
         protected Shape()
@@ -38,8 +40,18 @@ namespace GeometricPrimitives
             Width = pen.Width;
         }
 
+        private void InitializePen()
+        {
+            _pen = new Pen(Color.FromArgb(255, Red, Green, Blue), Width);
+            _pen.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
+        }
+
         protected Pen GetPen()
         {
+            if (_pen == null)
+            {
+                InitializePen();
+            }
             return _pen;
         }
 

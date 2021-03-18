@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using GeometricPrimitives;
 
@@ -31,7 +32,15 @@ namespace GraphicsEditor.Repository
             FileStream fileStream = File.OpenRead(filePath);
             Type[] shapeTypes = _shapeTypesRepository.ShapeTypes.ToArray();
             XmlSerializer serializer = new XmlSerializer(typeof(List<Shape>), shapeTypes);
-            _shapes = (List<Shape>) serializer.Deserialize(fileStream);
+            try
+            {
+                _shapes = (List<Shape>) serializer.Deserialize(fileStream);
+            }
+            catch (InvalidOperationException e)
+            {
+                MessageBox.Show(@"Error! Type '" + e.InnerException?.Message.Split('\'')[1] +
+                                @"' was not found. Are you missing a shape assembly?");
+            }
             fileStream.Close();
         }
 
